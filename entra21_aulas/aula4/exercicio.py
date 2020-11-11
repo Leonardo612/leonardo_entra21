@@ -37,12 +37,16 @@ def adicionar_passageiros():
     1) Adicionar passageiro
     2) sair
     """)
-    escolha_1 = int(input("Escolha umas das opções:"))
+    escolha_1 = int(input("Escolha umas das opções: "))
     if escolha_1 == 1:
-        pessoa_a_adicionar = Pessoa()
-        nome = int(input("Digite o nome da pessoa: "))
-        idade = int(input("Digite a idade da pessoa: "))
-        cpf = int(input("Digite o cpf da pessoa: "))
+        nome_adicionar = "LEO"
+        idade_adicionar = 34
+        cpf_adicionar = 648309
+        
+        nome_adicionar = (input("Digite o nome da pessoa: "))
+        idade_adicionar = int(input("Digite a idade da pessoa: "))
+        cpf_adicionar = int(input("Digite o cpf da pessoa: "))
+        pessoa_a_adicionar = Pessoa(nome_adicionar, idade_adicionar, cpf_adicionar)
         passageiros.append(pessoa_a_adicionar)
     elif escolha_1 == 2:
         exit
@@ -50,23 +54,17 @@ def adicionar_passageiros():
         print("opção não disponivél")
     
 def remover_passageiros():
-    print("""
-    1)Pedro
-    2)Maria
-    3)Leonardo
-    """)
-    escolha_2 = int(input("Escolha um dos passageiros para remover:"))
-    if escolha_2 == 1:
-        pessoas.pop(0)
-        print("pessoa removida")
-    elif escolha_2 == 2:
-        pessoas.pop(1)
-        print("pessoa removida")
-    elif escolha_2 == 3:
-        pessoas.pop(2)
-        print("pessoa removida")
-    else:
-        print("Essa opção não esta disponivél")
+    print(*passageiros)
+    nome_remover = (input("Digite o nome da pessoa para removela: "))
+    idade_remover = int(input("Digite a idade da pessoa para removela: "))
+    cpf_remover = int(input("Digite o cpf da pessoa para removela: "))
+    for i in passageiros:
+        if i.nome == nome_remover:
+            passageiros.remove(i)
+        if i.idade == idade_remover:
+            passageiros.remove(i)
+        if i.cpf == cpf_remover:
+            passageiros.remove(i)
         
     def __str__(self):
         return f''
@@ -120,6 +118,8 @@ class Caminhao(Veiculo):
 
 
 
+
+
 ford_focus = Carro(4, "ford focus", "flex", "branca", "Ford")
 print(f'{ford_focus.modelo} é {ford_focus.tipo} tem a cor {ford_focus.cor} e a marca e {ford_focus.marca}')
 
@@ -133,7 +133,7 @@ print("""
 1) Adicionar pessoas
 2) Remover pessoas 
 """)
-escolha_3 = int(input("Digite a opção selecionada"))
+escolha_3 = int(input("Digite a opção selecionada "))
 
 if escolha_3 == 1:
     adicionar_passageiros()
