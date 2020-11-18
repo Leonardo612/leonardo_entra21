@@ -1,5 +1,7 @@
 # Construa uma classe chamada veículo com no minímo 5 atributos e 3 metódos
 # Faça outras 3 classes que herdem da classe veículo; por exemplo Carro; e ajuste as funções onde necessário (polimorfismo)
+import sqlite3 
+
 class Pessoa:
     def __init__(self, nome, idade, cpf):
         self.nome = nome
@@ -20,7 +22,104 @@ maria = Pessoa("Maria","21","12345321")
 passageiros.append(leonardo)
 passageiros.append(pedro)
 passageiros.append(maria)
+try:
+    conn = sqlite3.connect('veiculo.db')
+    cursor = conn.cursor()
 
+    cursor.execute("""
+    CREATE TABLE veiculo(
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+        marca TEXT NOT NULL,
+        numero_de_portas INTEGER NOT NULL,
+        modelo TEXT NOT NULL,
+        tipo TEXT NOT NULL, 
+        cor TEXT NOT NULL
+    );
+    """)
+
+    print('Tabela criada com sucesso.')
+
+except:
+    print("Tabela ja criada ") 
+lista_de_carros = [('Ford', 4, 'Focus', 'Esportivo', 'Branco'),
+        ('Volkswagen', 4, 'Gol', 'Popular', 'Vermelho'),
+        ('Audi', 2, 'R8', 'Esportivo', 'Prata'),
+        ('Ford', 4, 'Fusion Titanium', 'Esportivo', 'Preto'),
+        ('Renault', 4, 'Sandero', 'Popular', 'Branco')]
+try:
+    cursor.executemany("""
+        INSERT INTO veiculo(marca, numero_de_portas, modelo, tipo, cor)
+        VALUES (?,?,?,?,?)
+    """, lista_de_carros)
+    conn.commit()
+
+except:
+    conn.rollback()
+    raise RuntimeError("Uh oh, an error occurred ...")
+
+print('Dados inseridos com sucesso.')
+
+try:    
+    cursor.execute("""
+        ALTER TABLE veiculo
+        ADD COLUM nome TEXT 
+    """)
+
+
+    cursor.execute("""
+        ALTER TABLE veiculo
+        ADD COLUM ano INTEGER 
+    """)
+
+
+    cursor.execute("""
+        ALTER TABLE veiculo
+        ADD COLUM placa INTEGER 
+    """)
+
+
+    cursor.execute("""
+        ALTER TABLE veiculo
+        ADD COLUM proprietario TEXT NOT NULL
+    """)
+
+
+    cursor.execute("""
+        ALTER TABLE veiculo
+        ADD COLUM  km_rodado NOT NULL
+    """)
+
+
+    cursor.execute("""
+        ALTER TABLE veiculo
+        ADD COLUM qtd_passageiros NOT NULL
+    """)
+
+
+    cursor.execute("""
+        ALTER TABLE veiculo
+        ADD COLUM motor NOT NULL
+    """)
+
+
+    cursor.execute("""
+        ALTER TABLE veiculo
+        ADD COLUM meio_locomocao NOT NULL
+    """)
+
+    cursor.execute("""
+        ALTER TABLE veiculo
+        ADD COLUM valor NOT NULL
+    """)
+
+except:
+    conn.rollback()
+    Exception e: print(e)
+
+conn.commit()
+
+
+conn.close()
 
 class Veiculo:
     def __init__(self, numero_de_portas, modelo, tipo, cor, marca):

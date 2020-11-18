@@ -24,11 +24,11 @@ class Veiculo:
     def get_passageiros(self)-> list:
         return self.__passageiros
 
-conn = sqlite3.connect('clientes.db')
+conn = sqlite3.connect('veiculo.db')
 cursor = conn.cursor()
 
 cursor.execute("""
-CREATE TABLE veiculo(
+CREATE TABLE a(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
     marca TEXT NOT NULL,
     combustivel TEXT NOT NULL,
